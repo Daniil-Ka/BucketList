@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BucketList</string>
+    <string name="activity_auth">Аутеризация</string>
+    <string name="title_chats">Чаты</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_targets">Цели</string>
+    <string name="go_back">Назад</string>
+    <string name="selection_state">Selected: %1$d out of %2$d</string>
+    <string name="select_all">Select All</string>
+    <string name="clear_all">Clear All</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>

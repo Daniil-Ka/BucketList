@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="imageView" type="id" />
+    <item name="nameTextView" type="id" />
+    <item name="companyTextView" type="id" />
+    <item name="likedImageView" type="id" />
+    <item name="more" type="id" />
+</resources>
