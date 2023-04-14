@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_targets">
+
+    <fragment
+        android:id="@+id/navigation_targets"
+        android:name="com.tms.bucketlist.ui.targets.TargetsFragment"
+        android:label="@string/title_targets"
+        tools:layout="@layout/fragment_targets" >
+        <action
+            android:id="@+id/action_navigation_targets_to_TargetFragment"
+            app:destination="@id/navigation_target"
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/slide_out_left"
+            app:popEnterAnim="@animator/slide_in_right"
+            app:popExitAnim="@animator/slide_out_left"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_target"
+        android:name="com.tms.bucketlist.ui.targets.details.TargetFragment"
+        android:label="@string/title_target"
+        tools:layout="@layout/fragment_target" >
+        <argument
+            android:name="Id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_create_target"
+        android:name="com.tms.bucketlist.ui.targets.CreateTargetFragment"
+        android:label="@string/title_create_target"
+        tools:layout="@layout/fragment_create_target" />
+
+    <fragment
+        android:id="@+id/navigation_chats"
+        android:name="com.tms.bucketlist.ui.chats.ChatsFragment"
+        android:label="@string/title_chats"
+        tools:layout="@layout/fragment_chats" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.tms.bucketlist.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

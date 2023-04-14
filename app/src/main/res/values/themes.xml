@@ -32,6 +32,12 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="android:background">?attr/colorPrimaryVariant</item>
     </style>
+    <style name="Theme.BucketList.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.BucketList.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.BucketList.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

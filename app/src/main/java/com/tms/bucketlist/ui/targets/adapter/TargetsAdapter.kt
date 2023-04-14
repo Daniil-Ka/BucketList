@@ -1,14 +1,18 @@
 package com.tms.bucketlist.ui.targets.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tms.bucketlist.R
 import com.tms.bucketlist.databinding.ItemTargetBinding
 import com.tms.bucketlist.domain.Target
+import com.tms.bucketlist.ui.targets.TargetsActionListener
 
-class TargetsAdapter : RecyclerView.Adapter<TargetsAdapter.TargetsViewHolder>() {
+class TargetsAdapter(
+    private val targetsActionListener: TargetsActionListener
+) : RecyclerView.Adapter<TargetsAdapter.TargetsViewHolder>(), View.OnClickListener {
 
     var data: List<Target> = emptyList()
         set(newValue) {
@@ -24,7 +28,27 @@ class TargetsAdapter : RecyclerView.Adapter<TargetsAdapter.TargetsViewHolder>() 
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemTargetBinding.inflate(inflater, parent, false)
 
+        binding.root.setOnClickListener(this)
+        binding.more.setOnClickListener(this)
+        /*binding.likedImageView.setOnClickListener(this)
+
+        holder.itemView.tag = target
+        holder.binding.companyTextView.tag = target
+        holder.binding.imageView.tag = target
+        holder.binding.nameTextView.tag = target
+        holder.binding.more.tag = target*/
+
         return TargetsViewHolder(binding)
+    }
+
+    override fun onClick(view: View) {
+        val target: Target = view.tag as Target // Получаем из тэга цель
+
+        when (view.id) {
+            R.id.more -> targetsActionListener.onTargetRemove(target)
+            R.id.likedImageView -> { }
+            else -> targetsActionListener.onTargetClick(target)
+        }
     }
 
     override fun onBindViewHolder(holder: TargetsViewHolder, position: Int) {
@@ -32,7 +56,6 @@ class TargetsAdapter : RecyclerView.Adapter<TargetsAdapter.TargetsViewHolder>() 
         val context = holder.itemView.context
 
         with(holder.binding) {
-
             nameTextView.text = target.name // Отрисовка имени пользователя
             companyTextView.text = target.description // Отрисовка компании пользователя
 
@@ -40,6 +63,12 @@ class TargetsAdapter : RecyclerView.Adapter<TargetsAdapter.TargetsViewHolder>() 
                 .error(R.drawable.circle) // TODO текстура с ошибкой
                 .placeholder(R.drawable.circle)
                 .into(imageView)
+
+            holder.itemView.tag = target
+            holder.binding.companyTextView.tag = target
+            holder.binding.imageView.tag = target
+            holder.binding.nameTextView.tag = target
+            holder.binding.more.tag = target
         }
     }
 }
