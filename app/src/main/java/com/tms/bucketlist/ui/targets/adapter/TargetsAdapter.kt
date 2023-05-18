@@ -29,7 +29,9 @@ class TargetsAdapter(
         val binding = ItemTargetBinding.inflate(inflater, parent, false)
 
         binding.root.setOnClickListener(this)
-        binding.more.setOnClickListener(this)
+        binding.dedlineTextView.setOnClickListener(this)
+        binding.usersTextView.setOnClickListener(this)
+        binding.nameTextView.setOnClickListener(this)
         /*binding.likedImageView.setOnClickListener(this)
 
         holder.itemView.tag = target
@@ -57,18 +59,18 @@ class TargetsAdapter(
 
         with(holder.binding) {
             nameTextView.text = target.name // Отрисовка имени пользователя
-            companyTextView.text = target.description // Отрисовка компании пользователя
+            //companyTextView.text = target.description // Отрисовка компании пользователя
 
+            /*
             Glide.with(context).load(target.photoUrl).circleCrop() // Отрисовка фотографии
                 .error(R.drawable.circle) // TODO текстура с ошибкой
                 .placeholder(R.drawable.circle)
                 .into(imageView)
-
+*/
             holder.itemView.tag = target
-            holder.binding.companyTextView.tag = target
-            holder.binding.imageView.tag = target
+            holder.binding.dedlineTextView.tag = target
             holder.binding.nameTextView.tag = target
-            holder.binding.more.tag = target
+            holder.binding.usersTextView.tag = target
         }
     }
 }

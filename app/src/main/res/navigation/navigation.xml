@@ -41,9 +41,9 @@
 
     <fragment
         android:id="@+id/navigation_chats"
-        android:name="com.tms.bucketlist.ui.chats.ChatsFragment"
+        android:name="com.tms.bucketlist.IdeasGenereator"
         android:label="@string/title_chats"
-        tools:layout="@layout/fragment_chats" />
+        tools:layout="@layout/fragment_ideas_genereator" />
 
     <fragment
         android:id="@+id/navigation_profile"
