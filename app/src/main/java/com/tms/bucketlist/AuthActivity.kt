@@ -32,14 +32,13 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-        val i = Intent(this@AuthActivity, MainActivityV2::class.java)
-        startActivity(i)
-//        if (isLogin()) {
-//            GlobalScope.launch { onLogin(currentUser!!) }
-//        }
-//        else {
-//            emailLink()
-//        }
+
+        if (isLogin()) {
+            GlobalScope.launch { onLogin(currentUser!!) }
+        }
+        else {
+            emailLink()
+        }
     }
 
     /** вход успешен */

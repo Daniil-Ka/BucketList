@@ -1,10 +1,10 @@
 package com.tms.bucketlist.ui.targets
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -35,15 +35,20 @@ class TargetsFragment : Fragment() {
         val recyclerView = root.findViewById<RecyclerView>(R.id.targetsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(activity);
 
-        var adapter = TargetsAdapter(object : TargetsActionListener { // Создание объекта
+        //region Кнопка добававить цель
+        val button: View = root.findViewById(R.id.fab)
+        button.setOnClickListener {
+            val direction = TargetsFragmentDirections
+                .actionNavigationTargetsToNavigationCreateTarget()
+            findNavController().navigate(direction)
+        }
+        //endregion
+
+        var adapter = TargetsAdapter(object : TargetsActionListener {
             override fun onTargetClick(target: Target) {
                 val direction = TargetsFragmentDirections
                     .actionNavigationTargetsToTargetFragment(target.id)
                 findNavController().navigate(direction)
-            }
-
-            override fun onPersonGetId(target: Target) {
-                TODO("Not yet implemented")
             }
 
             override fun onTargetRemove(target: Target) {
@@ -55,8 +60,6 @@ class TargetsFragment : Fragment() {
         TargetsRepository.instance.addListener {
             adapter.data = TargetsRepository.instance.targets
         }
-
-
 
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = DefaultItemAnimator()

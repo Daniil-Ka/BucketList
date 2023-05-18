@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.tms.bucketlist.R
-import com.tms.bucketlist.databinding.FragmentTargetBinding
+import com.tms.bucketlist.databinding.FragmentDetailsTargetBinding
 
-class TargetFragment : Fragment() {
+class TargetDetailsFragment : Fragment() {
 
-    private val args: TargetFragmentArgs by navArgs()
+    private val args: TargetDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class TargetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentTargetBinding.bind(view)
+        val binding = FragmentDetailsTargetBinding.bind(view)
 
         binding.root
 
@@ -60,6 +60,6 @@ class TargetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_target, container, false)
+        return inflater.inflate(R.layout.fragment_details_target, container, false)
     }
 }

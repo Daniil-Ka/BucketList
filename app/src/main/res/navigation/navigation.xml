@@ -17,13 +17,16 @@
             app:exitAnim="@animator/slide_out_left"
             app:popEnterAnim="@animator/slide_in_right"
             app:popExitAnim="@animator/slide_out_left"/>
+        <action
+            android:id="@+id/action_navigation_targets_to_navigation_create_target"
+            app:destination="@id/navigation_create_target" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_target"
-        android:name="com.tms.bucketlist.ui.targets.details.TargetFragment"
+        android:name="com.tms.bucketlist.ui.targets.details.TargetDetailsFragment"
         android:label="@string/title_target"
-        tools:layout="@layout/fragment_target" >
+        tools:layout="@layout/fragment_details_target" >
         <argument
             android:name="Id"
             app:argType="long"

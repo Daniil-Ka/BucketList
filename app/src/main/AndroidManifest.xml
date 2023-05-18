@@ -12,19 +12,11 @@
         android:theme="@style/Theme.BucketList"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivityV2"
-            android:exported="false"
-            android:label="@string/title_activity_main_v2"
-            android:theme="@style/Theme.BucketList.NoActionBar" />
-        <activity
-            android:name=".TargetActivity"
-            android:exported="false"
-            android:label="@string/title_activity_target"
-            android:theme="@style/Theme.BucketList.NoActionBar" />
-        <activity
-            android:name=".AuthActivity"
+            android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/activity_auth">
+            android:label="@string/title_activity_main_v2"
+            android:theme="@style/Theme.BucketList" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".AuthActivity"
             android:exported="true"
-            android:label="@string/app_name"></activity>
+            android:label="@string/activity_auth">
+
+        </activity>
+
     </application>
 
 </manifest>
