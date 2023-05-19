@@ -22,16 +22,19 @@
             app:destination="@id/navigation_create_target" />
     </fragment>
 
-    <fragment
+    <dialog
         android:id="@+id/navigation_target"
         android:name="com.tms.bucketlist.ui.targets.details.TargetDetailsFragment"
         android:label="@string/title_target"
         tools:layout="@layout/fragment_details_target" >
+        <action
+            android:id="@+id/target_return_button"
+            app:destination="@+id/navigation_targets"/>
         <argument
             android:name="Id"
             app:argType="long"
             android:defaultValue="-1L" />
-    </fragment>
+    </dialog>
 
     <fragment
         android:id="@+id/navigation_create_target"
