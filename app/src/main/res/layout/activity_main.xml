@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="142dp"
 
-        android:background="@drawable/gradient_rectangle"
+        android:background="@drawable/nav_background_up"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -65,7 +65,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
 
-        android:background="@drawable/nav_background_curved"
+        android:background="@drawable/nav_background_down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
 

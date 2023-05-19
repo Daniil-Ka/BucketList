@@ -11,17 +11,18 @@ import com.tms.bucketlist.domain.Privacy
 import com.tms.bucketlist.domain.Target
 
 /** Хранит информацию о локальном пользователе и все его данные на устройстве */
-class LocalProfileService private constructor() {
-    var name = ""
-    var age = ""
-    var sex = ""
-    var email = " "
-    var phoneNumber = ""
-    var photo = Drawable.createFromPath("res/drawable/circle.xml")
-    var data : SharedPreferences? = null
+class LocalProfileService private constructor(
+    var name: String,
+    var age: String,
+    var sex: String,
+    var email: String,
+    var phoneNumber: String,
+    var photo: Drawable?,
+    var data: SharedPreferences?,
+) {
 
     companion object {
-        val instance = LocalProfileService()
+        val instance = LocalProfileService("", "", "", "", "", null, null)
     }
 
     init {
@@ -34,6 +35,7 @@ class LocalProfileService private constructor() {
         this.sex = sex
         this.email = email
         this.phoneNumber = phoneNumber
+        photo = Drawable.createFromPath("res/drawable/circle.xml")
     }
 
 }

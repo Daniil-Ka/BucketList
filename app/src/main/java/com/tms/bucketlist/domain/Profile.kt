@@ -8,3 +8,8 @@ data class Profile(
     val photoUrl: String,
     val isFavorite: Boolean
 )
+{
+    companion object {
+        var CurrentProfile: Profile = Profile(0, "", "", "", false)
+    }
+}
