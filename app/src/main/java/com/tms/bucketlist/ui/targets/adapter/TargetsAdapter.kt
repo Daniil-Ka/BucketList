@@ -59,6 +59,8 @@ class TargetsAdapter(
 
         with(holder.binding) {
             nameTextView.text = target.name // Отрисовка имени пользователя
+            dedlineTextView.text = target.name // Отрисовка имени пользователя
+            usersTextView.text = target.name // Отрисовка имени пользователя
             //companyTextView.text = target.description // Отрисовка компании пользователя
 
             /*

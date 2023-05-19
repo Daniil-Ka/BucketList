@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.tms.bucketlist.R
 import com.tms.bucketlist.TargetsRepository
 import com.tms.bucketlist.databinding.FragmentDetailsTargetBinding
@@ -36,48 +38,25 @@ class TargetDetailsFragment : DialogFragment() {
 
         val target = TargetsRepository.instance.getTargetById(args.Id)
         if (target != null) {
-            val target_name = view?.findViewById<TextView>(R.id.target_name)
+            val target_name = view.findViewById<TextView>(R.id.target_name)
             target_name?.text = target.name
             // TODO ДОПИСАТЬ ВЫВОД ПОДЗАДАЧ СПИСКОМ, ВЫПОЛНЕННЫЕ ЗЕЛЕНЫМ
             //             textView?.setTextColor(Color.GREEN)
             // TODO Дедлайн для задачи и участники нужно добавить в класс цели
-            val target_descripton = view?.findViewById<TextView>(R.id.target_description)
+            val target_descripton = view.findViewById<TextView>(R.id.target_description)
             target_descripton?.text = "Заметки: " + target.description
         }
 
         // TODO НЕ РАБОТАЛ ВОЗВРАТ ЧЕРЕЗ НАВИГАЦИЮ (КОД ВСЕ ЕЩЕ ОСТАВЛСЯ ТАМ)
         // TODO Оставил через прямое закрытие
-        val exitButton = view?.findViewById<ImageButton>(R.id.target_return_button)
-        exitButton?.setOnClickListener {
-            e -> dialog?.dismiss()
-        }
-            binding.root
+        val exitButton = view.findViewById<ImageButton>(R.id.target_return_button)
+        exitButton?.setOnClickListener { dialog?.dismiss() }
 
-            /*
-                super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentCatDetailsBinding.bind(view)
-        viewModel.catLiveData.observe(viewLifecycleOwner) { cat ->
-            binding.catNameTextView.text = cat.name
-            binding.catDescriptionTextView.text = cat.description
-            binding.catImageView.load(cat.photoUrl) {
-                transformations(CircleCropTransformation())
-                placeholder(R.drawable.circle)
-            }
-            binding.favoriteImageView.setImageResource(
-                if (cat.isFavorite) R.drawable.ic_favorite
-                else R.drawable.ic_favorite_not
-            )
-            binding.favoriteImageView.setTintColor(
-                if (cat.isFavorite) R.color.highlighted_action
-                else R.color.action
-            )
-        }
+        // задний фон
+        val targetsLayout = view.findViewById<ConstraintLayout>(R.id.target_main_layout)
+        targetsLayout?.setOnClickListener { dialog?.dismiss() }
 
 
-        binding.favoriteImageView.setOnClickListener {
-            viewModel.toggleFavorite()
-        }
-         */
             //binding.goBackButton.setOnClickListener {
             //    findNavController().popBackStack()
             // }
