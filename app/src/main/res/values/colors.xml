@@ -10,4 +10,6 @@
     <color name="highlighted_action">@color/purple_700</color>
     <color name="action">#ababab</color>
     <color name="selected">#223700B3</color>
+
+    <color name="gray">#a8a8a8</color>
 </resources>
