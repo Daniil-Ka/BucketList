@@ -1,30 +1,6 @@
 package com.tms.bucketlist.ui.profile
-
-
-/**import android.content.SharedPreferences
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
-import com.github.javafaker.Faker
-import com.github.javafaker.PhoneNumber
-import com.tms.bucketlist.domain.Category
-import com.tms.bucketlist.domain.Privacy
-import com.tms.bucketlist.domain.Target
-*/
-
-/** Хранит информацию о локальном пользователе и все его данные на устройстве */
-/**var name: String,
-    var age: String,
-    var sex: String,
-    var email: String,
-    var phoneNumber: String,
-    var photo: Drawable?,
-    var data: SharedPreferences?,
-*/
-
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.drawable.Drawable
 
 
 class ProfileData private constructor(context: Context){
@@ -47,9 +23,9 @@ class ProfileData private constructor(context: Context){
         }
 
     var age: Int
-        get() = sharedPreferences.getInt("name", 0)
+        get() = sharedPreferences.getInt("age", 0)
         set(value) {
-            sharedPreferences.edit().putInt("name", value).apply()
+            sharedPreferences.edit().putInt("age", value).apply()
         }
 
     var sex: String
@@ -58,7 +34,7 @@ class ProfileData private constructor(context: Context){
             sharedPreferences.edit().putString("sex", value).apply()
         }
 
-    var enail: String
+    var email: String
         get() = sharedPreferences.getString("email", "") ?: ""
         set(value) {
             sharedPreferences.edit().putString("email", value).apply()
