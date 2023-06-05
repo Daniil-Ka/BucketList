@@ -1,8 +1,11 @@
 package com.tms.bucketlist.domain
 
+import java.util.Date
+
 data class Target(
     val id: Long,
     val name: String,
+    //val endDate: Date,
     val description: String,
     val photoUrl: String,
     val category: Category,

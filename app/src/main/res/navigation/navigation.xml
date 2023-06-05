@@ -20,6 +20,7 @@
         <action
             android:id="@+id/action_navigation_targets_to_navigation_create_target"
             app:destination="@id/navigation_create_target" />
+
     </fragment>
 
     <dialog
@@ -36,7 +37,7 @@
             android:defaultValue="-1L" />
     </dialog>
 
-    <fragment
+    <dialog
         android:id="@+id/navigation_create_target"
         android:name="com.tms.bucketlist.ui.targets.CreateTargetFragment"
         android:label="@string/title_create_target"

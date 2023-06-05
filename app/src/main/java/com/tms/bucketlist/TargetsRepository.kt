@@ -37,6 +37,11 @@ class TargetsRepository private constructor(){
         notifyChanges()
     }
 
+    fun addTarget(target: Target) {
+        targets.remove(target)
+        notifyChanges()
+    }
+
     private var listeners = mutableListOf<TargetListener>() // Все слушатели
 
     fun addListener(listener: TargetListener) {
