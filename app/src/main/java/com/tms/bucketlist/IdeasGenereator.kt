@@ -1,59 +1,107 @@
 package com.tms.bucketlist
-
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.tms.bucketlist.databinding.FragmentIdeasGenereatorBinding
+import com.tms.bucketlist.ui.profile.ProfileViewModel
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import kotlinx.coroutines.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import androidx.appcompat.app.AppCompatActivity
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import org.json.JSONException
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [IdeasGenereator.newInstance] factory method to
- * create an instance of this fragment.
- */
 class IdeasGenereator : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentIdeasGenereatorBinding? = null
+    private val binding get() = _binding!!
 
+    private var textOutput : TextView? = null
+    private var textInput : EditText? = null
+    private var button : ImageButton? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ideas_genereator, container, false)
+        val view = inflater.inflate(R.layout.fragment_ideas_genereator, container, false)
+        textOutput = view.findViewById<TextView>(R.id.GPTanswer)
+        textInput = view.findViewById<EditText>(R.id.GPTinput)
+        button = view.findViewById<ImageButton>(R.id.GPTsend)
+
+        button?.setOnClickListener {
+            if (textInput?.text.toString() == "") {
+                textOutput?.text = "Введите запрос!"
+                return@setOnClickListener
+            }
+            textOutput?.text = "Загрузка..."
+            sendChatGPTRequest()
+        }
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IdeasGenereator.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IdeasGenereator().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun sendChatGPTRequest(){
+        val apiKey = "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"
+        val url = "https://api.openai.com/v1/engines/text-davinci-003/completions"
+        val client = OkHttpClient.Builder()
+            .callTimeout(300, TimeUnit.SECONDS)
+            .readTimeout(300, TimeUnit.SECONDS)
+            .build()
+
+        val prompt = "Ответь как советник bucket list " +
+                textInput?.text +
+                ". Если вопрос не подходит под тему, то не отвечай"
+
+        val jsonObject = JSONObject()
+        jsonObject.put("prompt", prompt)
+        jsonObject.put("max_tokens", 4000)
+
+        val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
+        val requestBody = jsonObject.toString().toRequestBody(mediaType)
+
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer $apiKey")
+            .post(requestBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println(e.toString())
+                textOutput?.post {
+                    textOutput?.text = "Что-то пошло не так... FAIL"
                 }
             }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseData = response.body?.string()
+                try {
+                    val jsonObject = JSONObject(responseData)
+                    val text = jsonObject.getJSONArray("choices").getJSONObject(0).getString("text").substring(2)
+                    textOutput?.post {
+                        textOutput?.text = text
+                    }
+                    println(text.length)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    textOutput?.post {
+                        textOutput?.text = "Что-то пошло не так..."
+                    }
+                }
+            }
+        })
     }
 }
