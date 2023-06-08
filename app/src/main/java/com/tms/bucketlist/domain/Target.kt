@@ -4,13 +4,13 @@ import java.util.Date
 
 data class Target(
     val id: Long,
-    val name: String,
+    var name: String,
     //val endDate: Date,
-    val description: String,
+    var description: String,
     val photoUrl: String,
     val category: Category,
     var privacy: Privacy,
-    val todo: List<Todo>,
+    var todo: List<Todo>,
 )
 {
     val isCompleted: Boolean

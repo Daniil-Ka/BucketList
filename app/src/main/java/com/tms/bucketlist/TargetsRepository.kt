@@ -4,6 +4,8 @@ import com.github.javafaker.Faker
 import com.tms.bucketlist.domain.Category
 import com.tms.bucketlist.domain.Privacy
 import com.tms.bucketlist.domain.Target
+import com.tms.bucketlist.domain.Todo
+import kotlin.random.Random
 
 typealias TargetListener = (persons: List<Target>) -> Unit
 
@@ -20,6 +22,9 @@ class TargetsRepository private constructor(){
         val faker = Faker.instance() // Переменная для создания случайных данных
 
         targets = (1..5).map {
+            val data = mutableListOf<Todo>()
+            val rnd = Random(10)
+            (0..5).forEach { i -> data.add(Todo("name", i.toString(), rnd.nextBoolean())) }
             Target(
                 id = it.toLong(),
                 name = faker.name().fullName(),
@@ -27,7 +32,7 @@ class TargetsRepository private constructor(){
                 photoUrl = "fake",
                 category = Category.DefaultCategory,
                 privacy = Privacy.Public,
-                todo = listOf()
+                todo = data
             )
         }.toMutableList()
     }
@@ -38,7 +43,7 @@ class TargetsRepository private constructor(){
     }
 
     fun addTarget(target: Target) {
-        targets.remove(target)
+        targets.add(target)
         notifyChanges()
     }
 
@@ -54,4 +59,5 @@ class TargetsRepository private constructor(){
     }
 
     private fun notifyChanges() = listeners.forEach { it.invoke(targets) }
+
 }

@@ -88,6 +88,7 @@ class IdeasGenereator : Fragment() {
 
             override fun onResponse(call: Call, response: Response) {
                 val responseData = response.body?.string()
+                println(responseData)
                 try {
                     val jsonObject = JSONObject(responseData)
                     val text = jsonObject.getJSONArray("choices").getJSONObject(0).getString("text").substring(2)

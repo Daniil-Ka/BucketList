@@ -31,6 +31,9 @@
         <action
             android:id="@+id/target_return_button"
             app:destination="@+id/navigation_targets"/>
+        <action
+            android:id="@+id/target_edit_button"
+            app:destination="@+id/navigation_create_target"/>
         <argument
             android:name="Id"
             app:argType="long"
@@ -39,9 +42,17 @@
 
     <dialog
         android:id="@+id/navigation_create_target"
-        android:name="com.tms.bucketlist.ui.targets.CreateTargetFragment"
+        android:name="com.tms.bucketlist.ui.targets_create.CreateTargetFragment"
         android:label="@string/title_create_target"
-        tools:layout="@layout/fragment_create_target" />
+        tools:layout="@layout/fragment_create_target">
+        <argument
+            android:name="Id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <action
+            android:id="@+id/target_return_button"
+            app:destination="@+id/navigation_targets"/>
+    </dialog>
 
     <fragment
         android:id="@+id/navigation_chats"

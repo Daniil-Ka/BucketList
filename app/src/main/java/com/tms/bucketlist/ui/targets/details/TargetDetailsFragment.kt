@@ -11,11 +11,20 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tms.bucketlist.R
 import com.tms.bucketlist.TargetsRepository
 import com.tms.bucketlist.databinding.FragmentDetailsTargetBinding
+import com.tms.bucketlist.domain.Todo
+import com.tms.bucketlist.ui.targets.TargetsFragment
+import com.tms.bucketlist.ui.targets.TargetsFragmentDirections
+import com.tms.bucketlist.ui.targets.details.TargetDetailsFragmentArgs
+import com.tms.bucketlist.ui.targets.details.TargetDetailsFragmentDirections
+import com.tms.bucketlist.ui.targets_create.TodoAdapter
 
 class TargetDetailsFragment : DialogFragment() {
 
@@ -23,7 +32,6 @@ class TargetDetailsFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -40,26 +48,27 @@ class TargetDetailsFragment : DialogFragment() {
         if (target != null) {
             val target_name = view.findViewById<TextView>(R.id.target_name)
             target_name?.text = target.name
-            // TODO ДОПИСАТЬ ВЫВОД ПОДЗАДАЧ СПИСКОМ, ВЫПОЛНЕННЫЕ ЗЕЛЕНЫМ
-            //             textView?.setTextColor(Color.GREEN)
-            // TODO Дедлайн для задачи и участники нужно добавить в класс цели
+
             val target_descripton = view.findViewById<TextView>(R.id.target_description)
             target_descripton?.text = "Заметки: " + target.description
         }
 
-        // TODO НЕ РАБОТАЛ ВОЗВРАТ ЧЕРЕЗ НАВИГАЦИЮ (КОД ВСЕ ЕЩЕ ОСТАВЛСЯ ТАМ)
-        // TODO Оставил через прямое закрытие
         val exitButton = view.findViewById<ImageButton>(R.id.target_return_button)
         exitButton?.setOnClickListener { dialog?.dismiss() }
 
-        // задний фон
         val targetsLayout = view.findViewById<ConstraintLayout>(R.id.target_main_layout)
         targetsLayout?.setOnClickListener { dialog?.dismiss() }
 
+        val editButton = view.findViewById<ImageButton>(R.id.target_edit_button)
+        editButton.setOnClickListener {
+            val dir = TargetDetailsFragmentDirections.targetEditButton(target!!.id)
+            findNavController().navigate(dir)
+        }
 
-            //binding.goBackButton.setOnClickListener {
-            //    findNavController().popBackStack()
-            // }
+        val recyclerView: RecyclerView? = view.findViewById<RecyclerView>(R.id.details_todo_recycler)
+        recyclerView?.layoutManager = LinearLayoutManager(this.context)
+        val adapter = DetailsTodoAdapter(target!!.todo.toMutableList())
+        recyclerView?.adapter = adapter
         }
 
         override fun onCreateView(

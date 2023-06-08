@@ -2,21 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/targetCreateLayout"
+    android:id="@+id/targetCreateBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fui_transparent"
-    tools:context=".ui.targets.CreateTargetFragment" >
+    tools:context=".ui.targets_create.CreateTargetFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/targetCreateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="75dp"
         android:background="@drawable/target_background"
-        android:minWidth="10dp"
-        android:minHeight="200dp"
+        android:minHeight="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +27,7 @@
             android:id="@+id/target_return_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="66dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/fui_transparent"
             android:src="@drawable/return_button"
@@ -39,7 +41,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="60dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/white_rounded_rectangle"
+            android:background="@color/fui_transparent"
             android:paddingTop="10dp"
             android:text="Сохранить"
             android:textAlignment="center"
@@ -74,5 +76,60 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/target_add_name" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/todo_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/add_todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/target_add_date"
+            tools:listitem="@layout/item_to_do" />
+
+        <EditText
+            android:id="@+id/add_todo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="65dp"
+            android:layout_marginBottom="10dp"
+            android:ems="10"
+            android:hint="Введите подзадачу"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/target_add_description"
+            app:layout_constraintEnd_toEndOf="@+id/todo_recycler"
+            app:layout_constraintStart_toStartOf="@+id/todo_recycler" />
+
+        <ImageButton
+            android:id="@+id/add_todo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/fui_transparent"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_constraintBottom_toBottomOf="@+id/add_todo"
+            app:layout_constraintStart_toEndOf="@+id/add_todo"
+            app:layout_constraintTop_toTopOf="@+id/add_todo" />
+
+        <EditText
+            android:id="@+id/target_add_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="10dp"
+            android:ems="10"
+            android:hint="Заметки"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/target_save_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
