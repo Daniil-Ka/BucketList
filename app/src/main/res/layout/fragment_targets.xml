@@ -15,17 +15,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:reverseLayout="false" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="66dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/add_target_button"
-        android:textColor="@color/white"
         android:text="    Добавить цель +    "
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/targetsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

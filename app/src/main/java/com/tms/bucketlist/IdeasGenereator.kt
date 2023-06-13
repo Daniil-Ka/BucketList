@@ -54,14 +54,15 @@ class IdeasGenereator : Fragment() {
     }
 
     private fun sendChatGPTRequest(){
-        val apiKey = "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"
+        //val apiKey = "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"
+        val apiKey = "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"
         val url = "https://api.openai.com/v1/engines/text-davinci-003/completions"
         val client = OkHttpClient.Builder()
             .callTimeout(300, TimeUnit.SECONDS)
             .readTimeout(300, TimeUnit.SECONDS)
             .build()
 
-        val prompt = "Ответь как советник bucket list " +
+        val prompt = "Ответь как советник bucket list: " +
                 textInput?.text +
                 ". Если вопрос не подходит под тему, то не отвечай"
 
@@ -91,7 +92,7 @@ class IdeasGenereator : Fragment() {
                 println(responseData)
                 try {
                     val jsonObject = JSONObject(responseData)
-                    val text = jsonObject.getJSONArray("choices").getJSONObject(0).getString("text").substring(2)
+                    val text = jsonObject.getJSONArray("choices").getJSONObject(0).getString("text").substring(4)
                     textOutput?.post {
                         textOutput?.text = text
                     }
