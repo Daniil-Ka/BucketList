@@ -55,6 +55,8 @@ class ProfileFragment : Fragment() {
                 data.sex = sexView.text.toString()
                 data.phoneNumber = phoneView.text.toString()
                 data.email = emailView.text.toString()
+                val name = activity?.findViewById<TextView>(R.id.nameTop)
+                name?.text = ProfileData.getInstance(requireContext()).name
                 Toast.makeText(requireContext(), "Сохранено", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 data.name = oldName

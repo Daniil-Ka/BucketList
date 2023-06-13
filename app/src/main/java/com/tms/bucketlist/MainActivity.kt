@@ -1,6 +1,7 @@
 package com.tms.bucketlist
 
 import android.os.Bundle
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tms.bucketlist.databinding.ActivityMainBinding
+import com.tms.bucketlist.ui.profile.ProfileData
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_targets, R.id.navigation_chats, R.id.navigation_profile
             )
         )
+        val name = findViewById<TextView>(R.id.nameTop)
+        name.text = ProfileData.getInstance(baseContext).name
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
