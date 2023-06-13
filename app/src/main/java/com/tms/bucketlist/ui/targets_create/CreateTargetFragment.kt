@@ -1,15 +1,19 @@
 package com.tms.bucketlist.ui.targets_create
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -23,6 +27,9 @@ import com.tms.bucketlist.domain.Category
 import com.tms.bucketlist.domain.Privacy
 import com.tms.bucketlist.domain.Target
 import com.tms.bucketlist.domain.Todo
+import okhttp3.internal.notifyAll
+import java.util.*
+
 
 class CreateTargetFragment : DialogFragment() {
     private var currentTarget : Target? = null
@@ -48,12 +55,39 @@ class CreateTargetFragment : DialogFragment() {
         return inflater.inflate(R.layout.fragment_create_target, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val nameView = view.findViewById<EditText>(R.id.target_add_name)
         val deadlineView = view.findViewById<EditText>(R.id.target_add_date)
         val desctiptionView = view.findViewById<EditText>(R.id.target_add_description)
+        val budgetView = view.findViewById<EditText>(R.id.target_add_cost)
+        desctiptionView.setMovementMethod(ScrollingMovementMethod())
+        //region deadline logic
+        deadlineView.setOnClickListener {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                // on below line we are passing context.
+                requireContext(),
+                { view, pickedYear, monthOfYear, dayOfMonth ->
+                    // on below line we are setting
+                    // date to our text view.
+                    deadlineView.setText(
+                        (dayOfMonth.toString() + "." + (monthOfYear + 1) + "." + pickedYear))
+                },
+                year,
+                month,
+                day
+            )
+            datePickerDialog.show()
+        }
+        //endregion
+
         //region layout
         val binding = FragmentCreateTargetBinding.bind(view)
         dialog?.window?.setLayout(
@@ -62,6 +96,7 @@ class CreateTargetFragment : DialogFragment() {
         )
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //endregion
+
         //region recycler logic
         val recyclerView: RecyclerView? = view.findViewById<RecyclerView>(R.id.todo_recycler)
         recyclerView?.layoutManager = LinearLayoutManager(this.context)
@@ -82,16 +117,23 @@ class CreateTargetFragment : DialogFragment() {
             todoDesc.setText("")
         }
         //endregion
+
         //region fill old values
         if (currentTarget != null){
             nameView.setText(currentTarget!!.name)
-            //TODO ДОПОЛНИТЬ ПОЛЕ ДЕДЛАЙН В КЛАССЕ ЦЕЛИ
-            //deadlineView.setText(currentTarget!!.)
+            budgetView.setText(currentTarget!!.budget)
+            deadlineView.setText(currentTarget!!.deadline)
             desctiptionView.setText(currentTarget!!.description)
         }
         //endregion
+
+        //region buttons
         val exitButton = view.findViewById<ImageButton>(R.id.target_return_button)
-        exitButton?.setOnClickListener { dialog?.dismiss() }
+        exitButton?.setOnClickListener {
+            val adapt = activity?.findViewById<RecyclerView>(R.id.targetsRecyclerView)?.adapter
+            adapt?.notifyDataSetChanged()
+            dialog?.dismiss()
+        }
 
         val saveButton = view.findViewById<TextView>(R.id.target_save_button)
         saveButton.setOnClickListener {
@@ -100,10 +142,9 @@ class CreateTargetFragment : DialogFragment() {
                 val target = Target(
                     newId,
                     nameView.text.toString(),
+                    deadlineView.text.toString(),
                     desctiptionView.text.toString(),
-                    "",
-                    Category.DefaultCategory,
-                    Privacy.Public,
+                    budgetView.text.toString(),
                     todo = todos
                 )
                 TargetsRepository.instance.addTarget(target)
@@ -112,9 +153,14 @@ class CreateTargetFragment : DialogFragment() {
                 currentTarget!!.name = nameView.text.toString()
                 currentTarget!!.description = desctiptionView.text.toString()
                 currentTarget!!.todo = todos
+                currentTarget!!.budget = budgetView.text.toString()
+                currentTarget!!.deadline = deadlineView.text.toString()
             }
+            val adapt = activity?.findViewById<RecyclerView>(R.id.targetsRecyclerView)?.adapter
+            adapt?.notifyDataSetChanged()
             dismissAllDialogs(parentFragmentManager)
         }
+        //endregion
     }
 
     fun dismissAllDialogs(manager: FragmentManager?) {

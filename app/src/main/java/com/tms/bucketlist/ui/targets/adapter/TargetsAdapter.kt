@@ -1,5 +1,6 @@
 package com.tms.bucketlist.ui.targets.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.tms.bucketlist.R
 import com.tms.bucketlist.databinding.ItemTargetBinding
 import com.tms.bucketlist.domain.Target
 import com.tms.bucketlist.ui.targets.TargetsActionListener
+import kotlin.math.roundToInt
 
 class TargetsAdapter(
     private val targetsActionListener: TargetsActionListener
@@ -30,7 +32,7 @@ class TargetsAdapter(
 
         binding.root.setOnClickListener(this)
         binding.dedlineTextView.setOnClickListener(this)
-        binding.usersTextView.setOnClickListener(this)
+        binding.progressTextView.setOnClickListener(this)
         binding.nameTextView.setOnClickListener(this)
         /*binding.likedImageView.setOnClickListener(this)
 
@@ -53,14 +55,21 @@ class TargetsAdapter(
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TargetsViewHolder, position: Int) {
         val target = data[position] // Получение цели из списка данных по позиции
         val context = holder.itemView.context
 
         with(holder.binding) {
             nameTextView.text = target.name // Отрисовка имени пользователя
-            dedlineTextView.text = target.name // Отрисовка имени пользователя
-            usersTextView.text = target.name // Отрисовка имени пользователя
+            dedlineTextView.text = "Дедлайн " + target.deadline // Отрисовка имени пользователя
+            progressTextView.text = (target.progress * 100).roundToInt().toString() + "%" // Отрисовка имени пользователя
+            if (target.isCompleted) {
+                targetBG.setBackgroundResource(R.drawable.target_done_background)
+            }
+            else {
+                targetBG.setBackgroundResource(R.drawable.white_rectangle_rounded)
+            }
             //companyTextView.text = target.description // Отрисовка компании пользователя
 
             /*
@@ -72,7 +81,7 @@ class TargetsAdapter(
             holder.itemView.tag = target
             holder.binding.dedlineTextView.tag = target
             holder.binding.nameTextView.tag = target
-            holder.binding.usersTextView.tag = target
+            holder.binding.progressTextView.tag = target
         }
     }
 }

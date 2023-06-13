@@ -1,10 +1,9 @@
 package com.tms.bucketlist
 
 import com.github.javafaker.Faker
-import com.tms.bucketlist.domain.Category
-import com.tms.bucketlist.domain.Privacy
 import com.tms.bucketlist.domain.Target
 import com.tms.bucketlist.domain.Todo
+import java.util.*
 import kotlin.random.Random
 
 typealias TargetListener = (persons: List<Target>) -> Unit
@@ -28,10 +27,9 @@ class TargetsRepository private constructor(){
             Target(
                 id = it.toLong(),
                 name = faker.name().fullName(),
+                deadline = faker.date().birthday().toString(),
                 description = faker.name().bloodGroup(),
-                photoUrl = "fake",
-                category = Category.DefaultCategory,
-                privacy = Privacy.Public,
+                budget = faker.number().digit(),
                 todo = data
             )
         }.toMutableList()

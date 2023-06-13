@@ -13,13 +13,14 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="50dp"
-                android:background="@drawable/gpt_background"
+                android:layout_marginBottom="80dp"
+                android:background="@drawable/gradient_rectange_rounded"
                 android:minHeight="280dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +35,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="70dp"
-                    android:background="@drawable/gpt_answer"
+                    android:background="@drawable/gpt_ramka"
                     android:padding="25dp"
                     android:text="Умный помощник"
                     android:textColor="@color/white"
@@ -80,11 +81,22 @@
                     android:layout_marginBottom="-5dp"
                     android:backgroundTint="@color/fui_transparent"
                     android:scaleType="fitXY"
-                    android:src="@android:drawable/ic_menu_send"
+                    android:src="@drawable/circle_transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Нет идей?\n ИИ поможет найти занятие!"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

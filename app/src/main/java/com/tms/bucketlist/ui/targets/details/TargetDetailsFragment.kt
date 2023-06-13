@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tms.bucketlist.R
 import com.tms.bucketlist.TargetsRepository
 import com.tms.bucketlist.databinding.FragmentDetailsTargetBinding
-import com.tms.bucketlist.domain.Todo
-import com.tms.bucketlist.ui.targets.TargetsFragment
-import com.tms.bucketlist.ui.targets.TargetsFragmentDirections
-import com.tms.bucketlist.ui.targets.details.TargetDetailsFragmentArgs
-import com.tms.bucketlist.ui.targets.details.TargetDetailsFragmentDirections
-import com.tms.bucketlist.ui.targets_create.TodoAdapter
+
 
 class TargetDetailsFragment : DialogFragment() {
 
@@ -51,13 +45,21 @@ class TargetDetailsFragment : DialogFragment() {
 
             val target_descripton = view.findViewById<TextView>(R.id.target_description)
             target_descripton?.text = "Заметки: " + target.description
+            target_descripton.setMovementMethod(ScrollingMovementMethod())
+
+            val target_deadline = view.findViewById<TextView>(R.id.target_deadline)
+            target_deadline?.text = "Дедлайн " + target.deadline
+
+            val target_budget = view.findViewById<TextView>(R.id.target_cost)
+            target_budget.text = "Бюджет " + target.budget
         }
 
         val exitButton = view.findViewById<ImageButton>(R.id.target_return_button)
-        exitButton?.setOnClickListener { dialog?.dismiss() }
-
-        val targetsLayout = view.findViewById<ConstraintLayout>(R.id.target_main_layout)
-        targetsLayout?.setOnClickListener { dialog?.dismiss() }
+        exitButton?.setOnClickListener {
+            val adapt = activity?.findViewById<RecyclerView>(R.id.targetsRecyclerView)?.adapter
+            adapt?.notifyDataSetChanged()
+            dialog?.dismiss()
+        }
 
         val editButton = view.findViewById<ImageButton>(R.id.target_edit_button)
         editButton.setOnClickListener {

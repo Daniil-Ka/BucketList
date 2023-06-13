@@ -5,11 +5,9 @@ import java.util.Date
 data class Target(
     val id: Long,
     var name: String,
-    //val endDate: Date,
+    var deadline: String,
     var description: String,
-    val photoUrl: String,
-    val category: Category,
-    var privacy: Privacy,
+    var budget: String,
     var todo: List<Todo>,
 )
 {

@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fui_transparent"
-    tools:context=".ui.targets_create.CreateTargetFragment" >
+    tools:context=".ui.targets_create.CreateTargetFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/targetCreateLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="75dp"
-        android:background="@drawable/target_background"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/white_rectangle_rounded"
         android:minHeight="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,58 +36,68 @@
 
         <TextView
             android:id="@+id/target_save_button"
-            android:layout_width="174dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="60dp"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="30dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/fui_transparent"
-            android:paddingTop="10dp"
-            android:text="Сохранить"
+            android:background="@drawable/gradient_rectange_rounded"
+            android:paddingTop="3dp"
+            android:text="Готово"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/target_return_button"
+            android:textColor="@color/white"
+            android:textScaleX="1.1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/target_return_button"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/target_add_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
             android:ems="10"
             android:hint="Название"
             android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/target_add_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:editable="false"
             android:ems="10"
             android:hint="Дедлайн"
-            android:inputType="date"
-            android:textSize="14sp"
+            android:inputType="none"
+            android:scrollHorizontally="false"
+            android:textSize="16sp"
             android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/target_add_name"
+            app:layout_constraintStart_toStartOf="@+id/target_add_name"
             app:layout_constraintTop_toBottomOf="@+id/target_add_name" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/todo_recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="-10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="-15dp"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@+id/add_todo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/target_add_date"
+            app:layout_constraintEnd_toEndOf="@+id/target_add_date"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/target_add_date"
+            app:layout_constraintTop_toBottomOf="@+id/target_add_cost"
             tools:listitem="@layout/item_to_do" />
 
         <EditText
@@ -99,11 +109,11 @@
             android:ems="10"
             android:hint="Введите подзадачу"
             android:inputType="textPersonName"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toTopOf="@+id/target_add_description"
             app:layout_constraintEnd_toEndOf="@+id/todo_recycler"
-            app:layout_constraintStart_toStartOf="@+id/todo_recycler" />
+            app:layout_constraintStart_toStartOf="@+id/target_add_date" />
 
         <ImageButton
             android:id="@+id/add_todo_button"
@@ -112,7 +122,10 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/fui_transparent"
-            android:src="@android:drawable/ic_input_add"
+            android:scaleType="fitXY"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
+            android:src="@drawable/todo_add"
             app:layout_constraintBottom_toBottomOf="@+id/add_todo"
             app:layout_constraintStart_toEndOf="@+id/add_todo"
             app:layout_constraintTop_toTopOf="@+id/add_todo" />
@@ -121,15 +134,27 @@
             android:id="@+id/target_add_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="50dp"
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="Заметки"
             android:inputType="textPersonName"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/target_save_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/target_add_date"
+            app:layout_constraintStart_toStartOf="@+id/target_add_date" />
+
+        <EditText
+            android:id="@+id/target_add_cost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Бюджет"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/target_add_date"
+            app:layout_constraintStart_toStartOf="@+id/target_add_date"
+            app:layout_constraintTop_toBottomOf="@+id/target_add_date" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

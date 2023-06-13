@@ -1,4 +1,5 @@
 package com.tms.bucketlist
+import android.annotation.SuppressLint
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -87,6 +88,7 @@ class IdeasGenereator : Fragment() {
                 }
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call, response: Response) {
                 val responseData = response.body?.string()
                 println(responseData)
@@ -100,7 +102,7 @@ class IdeasGenereator : Fragment() {
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     textOutput?.post {
-                        textOutput?.text = "Что-то пошло не так..."
+                        textOutput?.text = "Что-то пошло не так...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
                     }
                 }
             }
