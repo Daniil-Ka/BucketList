@@ -1,9 +1,13 @@
 package com.tms.bucketlist
 
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         name.text = ProfileData.getInstance(baseContext).name
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        supportActionBar?.hide();
     }
 
     override fun onSupportNavigateUp(): Boolean {

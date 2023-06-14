@@ -16,7 +16,7 @@
 
         <shape  android:shape="rectangle">
 
-            <solid android:color="?default_color" />
+            <solid android:color="?input_field" />
             <corners android:radius="20dp" />
 
 

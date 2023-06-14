@@ -13,4 +13,8 @@
 
     <color name="gray">#a8a8a8</color>
 
+    <attr name="gradient_start" format="color">#A181F2</attr>
+    <attr name="gradient_end" format="color">#5886F2</attr>
+    <attr name="input_field" format="color">#5886F2</attr>
+    <attr name="default_color" format="color">#A181F2</attr>
 </resources>
