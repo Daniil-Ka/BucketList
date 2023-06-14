@@ -56,7 +56,7 @@ class IdeasGenereator : Fragment() {
 
     private fun sendChatGPTRequest(){
         //val apiKey = "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"
-        val apiKey = "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"
+        val apiKey = "API_sk-o9N2QOetA6cMLEA0QynKT3BlbkFJ04gsADHhxxXEOm3qcO2Y"
         val url = "https://api.openai.com/v1/engines/text-davinci-003/completions"
         val client = OkHttpClient.Builder()
             .callTimeout(300, TimeUnit.SECONDS)
@@ -76,7 +76,7 @@ class IdeasGenereator : Fragment() {
 
         val request = Request.Builder()
             .url(url)
-            .addHeader("Authorization", "Bearer $apiKey")
+            .addHeader("Authorization", "Bearer ${apiKey.substring(4)}")
             .post(requestBody)
             .build()
 
