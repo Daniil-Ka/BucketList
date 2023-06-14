@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -138,7 +139,8 @@ class CreateTargetFragment : DialogFragment() {
         val saveButton = view.findViewById<TextView>(R.id.target_save_button)
         saveButton.setOnClickListener {
             if (currentTarget == null) {
-                val newId = TargetsRepository.instance.targets.maxBy { t -> t.id }.id + 1
+                val newId = (TargetsRepository.instance.targets.maxByOrNull { t -> t.id }?.id ?: 0) + 1
+
                 val target = Target(
                     newId,
                     nameView.text.toString(),

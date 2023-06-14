@@ -20,16 +20,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
+            android:scaleType="fitCenter"
             android:id="@+id/imageButton3"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="20dp"
-            android:background="@color/fui_transparent"
             android:contentDescription="desc"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/circle_bg" />
+            app:srcCompat="@drawable/persona"
+            android:background="@null"/>
 
         <TextView
             android:id="@+id/nameTop"
@@ -46,6 +47,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageButton3"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <ProgressBar
             android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyleHorizontal"
@@ -54,7 +56,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/progress_background"
+            android:background="@drawable/progressbar"
             android:max="100"
             android:progress="40"
             app:layout_constraintEnd_toEndOf="parent"

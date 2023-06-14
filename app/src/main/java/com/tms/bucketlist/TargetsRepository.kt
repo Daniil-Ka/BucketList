@@ -17,24 +17,6 @@ class TargetsRepository private constructor(){
 
     fun getTargetById(id: Long) : Target? = targets.firstOrNull { it.id == id }
 
-    init {
-        val faker = Faker.instance() // Переменная для создания случайных данных
-
-        targets = (1..5).map {
-            val data = mutableListOf<Todo>()
-            val rnd = Random(10)
-            (0..5).forEach { i -> data.add(Todo("name", i.toString(), rnd.nextBoolean())) }
-            Target(
-                id = it.toLong(),
-                name = faker.name().fullName(),
-                deadline = faker.date().birthday().toString(),
-                description = faker.name().bloodGroup(),
-                budget = faker.number().digit(),
-                todo = data
-            )
-        }.toMutableList()
-    }
-
     fun removeTarget(target: Target) {
         targets.remove(target)
         notifyChanges()
@@ -56,6 +38,6 @@ class TargetsRepository private constructor(){
         listeners.remove(listener)
     }
 
-    private fun notifyChanges() = listeners.forEach { it.invoke(targets) }
+    fun notifyChanges() = listeners.forEach { it.invoke(targets) }
 
 }

@@ -1,7 +1,11 @@
 package com.tms.bucketlist.domain
 
+import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 import java.util.Date
 
+@Keep
+@Serializable
 data class Target(
     val id: Long,
     var name: String,
@@ -15,5 +19,9 @@ data class Target(
         get() = todo.all { todo -> todo.isCompeted }
 
     val progress: Float
-        get() = todo.count { todo -> todo.isCompeted }.toFloat() / todo.count()
+        get() {
+            if (todo.isEmpty())
+                return 0f
+            return todo.count { todo -> todo.isCompeted }.toFloat() / todo.count()
+        }
 }

@@ -65,7 +65,7 @@ class TargetsAdapter(
             dedlineTextView.text = "Дедлайн " + target.deadline // Отрисовка имени пользователя
             progressTextView.text = (target.progress * 100).roundToInt().toString() + "%" // Отрисовка имени пользователя
             if (target.isCompleted) {
-                targetBG.setBackgroundResource(R.drawable.target_done_background)
+                targetBG.setBackgroundResource(R.drawable.white_rectangle_rounded_complite)
             }
             else {
                 targetBG.setBackgroundResource(R.drawable.white_rectangle_rounded)

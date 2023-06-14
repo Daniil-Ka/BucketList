@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tms.bucketlist.R
 import com.tms.bucketlist.TargetsRepository
 import com.tms.bucketlist.databinding.FragmentDetailsTargetBinding
+import kotlin.math.log
 
 
 class TargetDetailsFragment : DialogFragment() {
@@ -39,6 +41,7 @@ class TargetDetailsFragment : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val target = TargetsRepository.instance.getTargetById(args.Id)
+        Log.d("tagggg", args.Id.toString())
         if (target != null) {
             val target_name = view.findViewById<TextView>(R.id.target_name)
             target_name?.text = target.name

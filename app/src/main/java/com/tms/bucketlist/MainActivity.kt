@@ -1,5 +1,7 @@
 package com.tms.bucketlist
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -13,11 +15,19 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tms.bucketlist.databinding.ActivityMainBinding
+import com.tms.bucketlist.domain.Target
 import com.tms.bucketlist.ui.profile.ProfileData
+
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +50,35 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         supportActionBar?.hide();
+
+        prefs = this.getSharedPreferences("com.bucket.list", Context.MODE_PRIVATE)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    // сохранение и загрузка
+
+    private val dataTag = "bucketlist_targets"
+    override fun onStart() {
+        super.onStart()
+        var json: String = prefs.getString(dataTag, "[]") ?: "[]"
+
+        var targets = Json.decodeFromString<MutableList<Target>>(json)
+
+        TargetsRepository.instance.targets.clear()
+        TargetsRepository.instance.notifyChanges()
+
+        for (target in targets)
+            TargetsRepository.instance.addTarget(target)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        var data = TargetsRepository.instance.targets
+        var json = Json.encodeToString(data)
+        prefs.edit().putString(dataTag, json).apply();
     }
 }

@@ -6,5 +6,5 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-rootProject.name = "Bucket List"
+rootProject.name = "Bucket List TMS"
 include ':app'
