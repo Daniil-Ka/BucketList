@@ -123,9 +123,9 @@ class CreateTargetFragment : DialogFragment() {
         //endregion
 
         //region fill old values
-        binding.deleteTargetButton.background = resources.getDrawable(R.drawable.circle_transparent)
+        binding.deleteTargetButton.background = resources.getDrawable(R.drawable.gray_rounded_rectangle)
         if (currentTarget != null){
-            binding.deleteTargetButton.background = resources.getDrawable(R.drawable.circle_green)
+            binding.deleteTargetButton.background = resources.getDrawable(R.drawable.red_rounded_rectangle)
             nameView.setText(currentTarget!!.name)
             budgetView.setText(currentTarget!!.budget)
             deadlineView.setText(currentTarget!!.deadline)
