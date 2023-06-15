@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -58,7 +59,7 @@ class CreateTargetFragment : DialogFragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val nameView = view.findViewById<EditText>(R.id.target_add_name)
@@ -122,7 +123,9 @@ class CreateTargetFragment : DialogFragment() {
         //endregion
 
         //region fill old values
+        binding.deleteTargetButton.background = resources.getDrawable(R.drawable.circle_transparent)
         if (currentTarget != null){
+            binding.deleteTargetButton.background = resources.getDrawable(R.drawable.circle_green)
             nameView.setText(currentTarget!!.name)
             budgetView.setText(currentTarget!!.budget)
             deadlineView.setText(currentTarget!!.deadline)
@@ -158,6 +161,13 @@ class CreateTargetFragment : DialogFragment() {
                 currentTarget!!.budget = budgetView.text.toString()
                 currentTarget!!.deadline = deadlineView.text.toString()
             }
+            dismissAllDialogs(parentFragmentManager)
+        }
+
+        binding.deleteTargetButton.setOnClickListener {
+            if (currentTarget == null)
+                return@setOnClickListener
+            TargetsRepository.instance.removeTarget(currentTarget!!)
             dismissAllDialogs(parentFragmentManager)
         }
         //endregion
