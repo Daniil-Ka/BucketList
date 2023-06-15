@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
@@ -96,6 +97,7 @@ class CreateTargetFragment : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT
         )
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        binding.targetCreateLayout.minHeight = binding.targetCreateScroll.bottom - binding.targetCreateScroll.top
         //endregion
 
         //region recycler logic
@@ -131,8 +133,6 @@ class CreateTargetFragment : DialogFragment() {
         //region buttons
         val exitButton = view.findViewById<ImageButton>(R.id.target_return_button)
         exitButton?.setOnClickListener {
-            val adapt = activity?.findViewById<RecyclerView>(R.id.targetsRecyclerView)?.adapter
-            adapt?.notifyDataSetChanged()
             dialog?.dismiss()
         }
 
@@ -158,11 +158,16 @@ class CreateTargetFragment : DialogFragment() {
                 currentTarget!!.budget = budgetView.text.toString()
                 currentTarget!!.deadline = deadlineView.text.toString()
             }
-            val adapt = activity?.findViewById<RecyclerView>(R.id.targetsRecyclerView)?.adapter
-            adapt?.notifyDataSetChanged()
             dismissAllDialogs(parentFragmentManager)
         }
         //endregion
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val adapt = activity?.findViewById<RecyclerView>(R.id.targetsRecyclerView)?.adapter
+        activity?.findViewById<ProgressBar>(R.id.mainProgressBar)?.setProgress(TargetsRepository.instance.getTotalProgress())
+        adapt?.notifyDataSetChanged()
     }
 
     fun dismissAllDialogs(manager: FragmentManager?) {

@@ -5,15 +5,18 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.tms.bucketlist.databinding.ActivityMainBinding
 import com.tms.bucketlist.domain.Target
 import com.tms.bucketlist.ui.profile.ProfileData
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -45,8 +49,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_targets, R.id.navigation_chats, R.id.navigation_profile
             )
         )
-        val name = findViewById<TextView>(R.id.nameTop)
-        name.text = ProfileData.getInstance(baseContext).name
+        binding.nameTop.text = ProfileData.getInstance(baseContext).name
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         supportActionBar?.hide();
@@ -70,9 +73,9 @@ class MainActivity : AppCompatActivity() {
 
         TargetsRepository.instance.targets.clear()
         TargetsRepository.instance.notifyChanges()
-
         for (target in targets)
             TargetsRepository.instance.addTarget(target)
+        binding.mainProgressBar.setProgress(TargetsRepository.instance.getTotalProgress())
     }
 
     override fun onStop() {

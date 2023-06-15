@@ -58,7 +58,7 @@ class IdeasGenereator : Fragment() {
         //val apiKey = "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"
         val apiKey = ""
         if (apiKey == "")
-            throw Exception("вставь в меня ключ)")
+            throw Exception("Введи ключ")
         val url = "https://api.openai.com/v1/engines/text-davinci-003/completions"
         val client = OkHttpClient.Builder()
             .callTimeout(300, TimeUnit.SECONDS)
@@ -66,8 +66,7 @@ class IdeasGenereator : Fragment() {
             .build()
 
         val prompt = "Ответь как советник bucket list: " +
-                textInput?.text +
-                ". Если вопрос не подходит под тему, то не отвечай"
+                textInput?.text
 
         val jsonObject = JSONObject()
         jsonObject.put("prompt", prompt)
@@ -78,7 +77,7 @@ class IdeasGenereator : Fragment() {
 
         val request = Request.Builder()
             .url(url)
-            .addHeader("Authorization", "Bearer ${apiKey.substring(4)}")
+            .addHeader("Authorization", "Bearer ${apiKey}")
             .post(requestBody)
             .build()
 
@@ -96,7 +95,9 @@ class IdeasGenereator : Fragment() {
                 println(responseData)
                 try {
                     val jsonObject = JSONObject(responseData)
-                    val text = jsonObject.getJSONArray("choices").getJSONObject(0).getString("text").substring(4)
+                    var text = jsonObject.getJSONArray("choices").getJSONObject(0).getString("text")
+                    text = text.substring(text.indexOfFirst { c -> c.isWhitespace() })
+                    text = text.substring(text.indexOfFirst { c -> c.isLetterOrDigit() })
                     textOutput?.post {
                         textOutput?.text = text
                     }
@@ -104,7 +105,7 @@ class IdeasGenereator : Fragment() {
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     textOutput?.post {
-                        textOutput?.text = "Что-то пошло не так...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                        textOutput?.text = "Что-то пошло не так..."
                     }
                 }
             }

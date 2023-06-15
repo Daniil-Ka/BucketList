@@ -16,7 +16,7 @@ data class Target(
 )
 {
     val isCompleted: Boolean
-        get() = todo.all { todo -> todo.isCompeted }
+        get() = todo.all { todo -> todo.isCompeted } and !todo.isEmpty()
 
     val progress: Float
         get() {

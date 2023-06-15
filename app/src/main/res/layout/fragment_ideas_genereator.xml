@@ -68,7 +68,9 @@
                     android:ems="10"
                     android:hint="Подсказать что-то?"
                     android:inputType="textPersonName"
+                    android:maxLength="64"
                     android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -77,11 +79,12 @@
                     android:id="@+id/GPTsend"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:padding="6.5pt"
+                    android:layout_marginBottom="-5dp"
 
                     android:background="@null"
+                    android:padding="6.5pt"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/send_gpt_button"
+                    android:src="@drawable/baseline_chat_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
