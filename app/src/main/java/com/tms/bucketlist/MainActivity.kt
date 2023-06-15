@@ -2,6 +2,7 @@ package com.tms.bucketlist
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -11,6 +12,7 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.browser.trusted.ScreenOrientation
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -54,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         supportActionBar?.hide();
 
-        prefs = this.getSharedPreferences("com.bucket.list", Context.MODE_PRIVATE)
+        prefs = this.getSharedPreferences("com.bucket.list", MODE_PRIVATE)
     }
 
     override fun onSupportNavigateUp(): Boolean {
