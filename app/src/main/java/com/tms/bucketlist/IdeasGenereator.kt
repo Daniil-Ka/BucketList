@@ -34,6 +34,10 @@ class IdeasGenereator : Fragment() {
     private var textOutput : TextView? = null
     private var textInput : EditText? = null
     private var button : ImageButton? = null
+
+    private val savedInput = "IdeasGenereatorInput"
+    private val savedOutput = "IdeasGenereatorOutput"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +56,21 @@ class IdeasGenereator : Fragment() {
             sendChatGPTRequest()
         }
         return view
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) { // Here You have to save count value
+        super.onSaveInstanceState(outState)
+        outState.putString(savedOutput, textOutput?.text.toString())
+        outState.putString(savedInput, textInput?.text.toString())
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        if (savedInstanceState != null){
+            textOutput?.text = savedInstanceState.getString(savedOutput, "")
+            textInput?.setText(savedInstanceState.getString(savedInput, ""))
+        }
     }
 
     private fun sendChatGPTRequest(){
@@ -85,6 +104,7 @@ class IdeasGenereator : Fragment() {
             override fun onFailure(call: Call, e: IOException) {
                 println(e.toString())
                 textOutput?.post {
+                    e.printStackTrace()
                     textOutput?.text = "Что-то пошло не так... FAIL"
                 }
             }
