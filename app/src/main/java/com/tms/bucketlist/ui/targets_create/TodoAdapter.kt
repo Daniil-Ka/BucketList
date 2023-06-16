@@ -41,6 +41,7 @@ public class TodoAdapter(private val todo: MutableList<Todo>) :
 
     fun addTodo(description: String) {
         todo.add(todo.size, Todo("name", description, false))
-        notifyItemInserted(todo.size - 1);
+        //notifyItemInserted(todo.size - 1);
+        notifyDataSetChanged()
     }
 }
